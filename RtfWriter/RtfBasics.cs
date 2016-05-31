@@ -62,12 +62,14 @@ namespace Elistia.DotNetRtfWriter
     public enum Lcid
     {
         TraditionalChinese = 1028,
+        German = 1031,
         English = 1033,
         French = 1036,
-        German = 1031,
         Italian = 1040,
         Japanese = 1041,
         Korean = 1042,
+        Russian = 1049,
+        Ukrainian = 1058,
         SimplifiedChinese = 2052,
         Spanish = 3082,
     }
