@@ -1,5 +1,4 @@
 using System;
-using System.Configuration;
 using System.Collections.Generic;
 using System.Text;
 
@@ -14,11 +13,11 @@ namespace Elistia.DotNetRtfWriter
         /// <summary>
         /// Storage for array of content blocks.
         /// </summary>
-        protected List<RtfBlock> _blocks;
+        private List<RtfBlock> _blocks;
         /// <summary>
         /// Default character formats within this container.
         /// </summary>
-        protected RtfCharFormat _defaultCharFormat;
+        private RtfCharFormat _defaultCharFormat;
         
         private bool _allowParagraph;
         private bool _allowFootnote;
@@ -26,6 +25,7 @@ namespace Elistia.DotNetRtfWriter
         private bool _allowImage;
         private bool _allowTable;
         
+
         /// <summary>
         /// Internal use only.
         /// Default constructor that allows containing all types of content blocks.
@@ -67,7 +67,12 @@ namespace Elistia.DotNetRtfWriter
             _allowTable = allowTable;
             _defaultCharFormat = null;
         }
-        
+
+        protected List<RtfBlock> Blocks
+        {
+            get { return _blocks; }
+        }
+
         /// <summary>
         /// Get default character formats within this container.
         /// </summary>

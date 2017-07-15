@@ -1,7 +1,4 @@
 using System;
-using System.Configuration;
-using System.Collections;
-using System.Collections.Generic;
 using System.Text;
 
 namespace Elistia.DotNetRtfWriter
@@ -37,7 +34,7 @@ namespace Elistia.DotNetRtfWriter
 
             result.AppendLine(@"{\super\chftn}");
             result.AppendLine(@"{\footnote\plain\chftn");
-            ((RtfBlock)base._blocks[base._blocks.Count - 1]).BlockTail = "}";
+            ((RtfBlock)base.Blocks[base.Blocks.Count - 1]).BlockTail = "}";
             result.Append(base.render());
             result.AppendLine("}");
             return result.ToString();

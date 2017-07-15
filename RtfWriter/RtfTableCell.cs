@@ -1,5 +1,4 @@
 using System;
-using System.Configuration;
 using System.Text;
 
 namespace Elistia.DotNetRtfWriter
@@ -174,13 +173,13 @@ namespace Elistia.DotNetRtfWriter
             }
             
 
-            if (base._blocks.Count <= 0) {
+            if (base.Blocks.Count <= 0) {
                 result.AppendLine(@"\pard\intbl");
             } else {
-                for (int i = 0; i < base._blocks.Count; i++) {
-                    RtfBlock block = (RtfBlock) base._blocks[i];
-                    if (_defaultCharFormat != null && block.DefaultCharFormat != null) {
-                        block.DefaultCharFormat.copyFrom(_defaultCharFormat);
+                for (int i = 0; i < base.Blocks.Count; i++) {
+                    RtfBlock block = base.Blocks[i];
+                    if (DefaultCharFormat != null && block.DefaultCharFormat != null) {
+                        block.DefaultCharFormat.copyFrom(DefaultCharFormat);
                     }
                     if (block.Margins[Direction.Top] < 0) {
                         block.Margins[Direction.Top] = 0;

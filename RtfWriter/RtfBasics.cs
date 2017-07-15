@@ -1,5 +1,4 @@
 using System;
-using System.Configuration;
 
 namespace Elistia.DotNetRtfWriter
 {
@@ -349,7 +348,7 @@ namespace Elistia.DotNetRtfWriter
             }
         }
 
-        public bool equals( Margins margins )
+        public bool Equals(Margins margins)
         {
             return ( margins._margins[(int) Direction.Bottom] == _margins[(int) Direction.Bottom] ) &&
                 ( margins._margins[(int) Direction.Left] == _margins[(int) Direction.Left] ) &&

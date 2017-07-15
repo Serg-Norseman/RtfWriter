@@ -1,6 +1,3 @@
-@echo off
-
-cls
 
 rmdir .\Debugging\bin /s /q
 rmdir .\Debugging\obj /s /q

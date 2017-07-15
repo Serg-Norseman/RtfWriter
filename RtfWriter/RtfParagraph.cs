@@ -1,5 +1,4 @@
 using System;
-using System.Configuration;
 using System.Collections.Generic;
 using System.Text;
 
@@ -15,8 +14,8 @@ namespace Elistia.DotNetRtfWriter
         private Margins _margins;
         private Align _align;
         private List<RtfCharFormat> _charFormats;
-        protected bool _allowFootnote;
-        protected bool _allowControlWord;
+        private bool _allowFootnote;
+        private bool _allowControlWord;
         private List<RtfFootnote> _footnotes;
         private List<RtfFieldControlWord> _controlWords;
         private string _blockHead;

@@ -1,8 +1,6 @@
 using System;
-using System.Configuration;
 using System.Collections;
 using System.Text;
-using System.Collections.Generic;
 
 namespace Elistia.DotNetRtfWriter
 {
@@ -33,12 +31,12 @@ namespace Elistia.DotNetRtfWriter
                 throw new Exception("Invalid HeaderFooterType");
             }
             result.AppendLine();
-            for (int i = 0; i < base._blocks.Count; i++) {
-                if (base._defaultCharFormat != null
-                    && ((RtfBlock)base._blocks[i]).DefaultCharFormat != null) {
-                    ((RtfBlock)base._blocks[i]).DefaultCharFormat.copyFrom(base._defaultCharFormat);
+            for (int i = 0; i < base.Blocks.Count; i++) {
+                RtfBlock block = base.Blocks[i];
+                if (base.DefaultCharFormat != null && block.DefaultCharFormat != null) {
+                    block.DefaultCharFormat.copyFrom(base.DefaultCharFormat);
                 }
-                result.AppendLine(((RtfBlock)_blocks[i]).render());
+                result.AppendLine(((RtfBlock)Blocks[i]).render());
             }
             result.AppendLine("}");
             return result.ToString();
