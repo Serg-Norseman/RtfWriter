@@ -1,7 +1,3 @@
-
-/Debugging/bin/
-/Debugging/obj/
-
-/RtfWriter/bin/
-/RtfWriter/obj/
-/.vs/
+**/.vs/
+**/[Bb]in/
+**/[Oo]bj/

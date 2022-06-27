@@ -1,7 +1,6 @@
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.IO;
+using System.Text;
 
 namespace Elistia.DotNetRtfWriter
 {
@@ -115,12 +114,6 @@ namespace Elistia.DotNetRtfWriter
             }
             _colorTable.Add(color);
             return new ColorDescriptor(_colorTable.IndexOf(color));
-        }
-
-        public ColorDescriptor createColor(System.Drawing.Color color)
-        {
-            var rtfColor = new RtfColor(color.R, color.G, color.B);
-            return createColor(rtfColor);
         }
         
         public RtfTable addTable(int rowCount, int colCount, float fontSize)

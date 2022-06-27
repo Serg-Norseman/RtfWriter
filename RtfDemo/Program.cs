@@ -1,10 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Diagnostics;
 using Elistia.DotNetRtfWriter;
+using System.Diagnostics;
 
-namespace Debugging
+namespace RtfWriter.Demo
 {
     internal class Program
     {
@@ -108,7 +105,7 @@ namespace Debugging
             // ==========================================================================
             // Demo 5: Image
             // ==========================================================================
-            img = doc.addImage("../../demo5.jpg", ImageFileType.Jpg);
+            img = doc.addImage("../../demo5.jpg", RtfImageType.Jpg);
             // You may set the width only, and let the height be automatically adjusted
             // to keep aspect ratio.
             img.Width = 130;
