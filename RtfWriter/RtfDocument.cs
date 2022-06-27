@@ -118,16 +118,8 @@ namespace Elistia.DotNetRtfWriter
         
         public RtfTable addTable(int rowCount, int colCount, float fontSize)
         {
-            float horizontalWidth;
-
-            if (_orientation == PaperOrientation.Portrait) {
-                horizontalWidth = RtfUtility.paperWidthInPt(_paper, _orientation)
-                    - _margins[Direction.Left] - _margins[Direction.Right];
-            } else {
-                horizontalWidth = RtfUtility.paperHeightInPt(_paper, _orientation)
-                    - _margins[Direction.Left] - _margins[Direction.Right];
-            }
-            return base.addTable(rowCount, colCount, horizontalWidth, fontSize);
+            var horizontalWidth = RtfUtility.paperWidthInPt(_paper, _orientation) - _margins[Direction.Left] - _margins[Direction.Right];
+            return addTable(rowCount, colCount, horizontalWidth, fontSize);
         }
 
         public override string render()
