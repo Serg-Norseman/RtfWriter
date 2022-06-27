@@ -25,15 +25,14 @@ namespace Elistia.DotNetRtfWriter
             _position = position;
             ReadingDirection = direction;
         }
-        
+
         internal int Position
         {
-            get
-            {
+            get {
                 return _position;
             }
         }
-        
+
         public override string Render()
         {
             StringBuilder result = new StringBuilder();

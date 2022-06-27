@@ -8,30 +8,30 @@ namespace Elistia.DotNetRtfWriter
     /// </summary>
     public static class RtfUtility
     {
-        public static float mm2Points( float mm )
+        public static float mm2Points(float mm)
         {
-            return mm * (float) 2.836;
+            return mm * (float)2.836;
         }
 
-        public static int mm2Twips( float mm )
+        public static int mm2Twips(float mm)
         {
             var inches = mm * 0.0393700787;
-            return Convert.ToInt32( inches * 1440 );
+            return Convert.ToInt32(inches * 1440);
         }
 
         public static int pt2Twip(float pt)
         {
-            return !float.IsNaN( pt ) ? Convert.ToInt32( pt * 20 ) : 0;
+            return !float.IsNaN(pt) ? Convert.ToInt32(pt * 20) : 0;
         }
 
         public static int pt2HalfPt(float pt)
         {
             return Convert.ToInt32(pt * 2);
         }
-        
+
         private static int[] PaperDimensions(PaperSize paperSize)
         {
-            switch(paperSize) {
+            switch (paperSize) {
                 case PaperSize.A4:
                     return new int[] { 11906, 16838 };
                 case PaperSize.Letter:
@@ -42,7 +42,7 @@ namespace Elistia.DotNetRtfWriter
                     throw new Exception("Unknow paper size.");
             }
         }
-        
+
         public static int PaperWidthInTwip(PaperSize paperSize, PaperOrientation orientation)
         {
             int[] d = PaperDimensions(paperSize);
@@ -60,7 +60,7 @@ namespace Elistia.DotNetRtfWriter
                 }
             }
         }
-        
+
         public static int PaperHeightInTwip(PaperSize paperSize, PaperOrientation orientation)
         {
             int[] d = PaperDimensions(paperSize);
@@ -81,7 +81,7 @@ namespace Elistia.DotNetRtfWriter
 
         public static float PaperWidthInPt(PaperSize paperSize, PaperOrientation orientation)
         {
-            return (float) PaperWidthInTwip(paperSize, orientation) / 20.0F;
+            return (float)PaperWidthInTwip(paperSize, orientation) / 20.0F;
         }
 
         public static float PaperHeightInPt(PaperSize paperSize, PaperOrientation orientation)

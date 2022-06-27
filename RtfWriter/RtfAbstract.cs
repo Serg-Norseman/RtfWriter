@@ -71,8 +71,7 @@ namespace Elistia.DotNetRtfWriter
 
         protected string AlignmentCode()
         {
-            switch (Alignment)
-            {
+            switch (Alignment) {
                 case Align.Left:
                     return @"\ql";
                 case Align.Right:

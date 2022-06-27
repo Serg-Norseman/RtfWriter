@@ -23,13 +23,13 @@ namespace Elistia.DotNetRtfWriter
         private bool _startNewPage;
         private float _firstLineIndent;
         private RtfCharFormat _defaultCharFormat;
-        
+
         protected struct Token
         {
             public string text;
             public bool isControl;
         }
-        
+
         private class DisjointRange
         {
             public DisjointRange()
@@ -71,35 +71,30 @@ namespace Elistia.DotNetRtfWriter
             _defaultCharFormat = null;
             ReadingDirection = direction;
         }
-        
+
         public StringBuilder Text
         {
-            get
-            {
+            get {
                 return _text;
             }
         }
-        
+
         public float LineSpacing
         {
-            get
-            {
+            get {
                 return _linespacing;
             }
-            set
-            {
+            set {
                 _linespacing = value;
             }
         }
-        
+
         public float FirstLineIndent
         {
-            get
-            {
+            get {
                 return _firstLineIndent;
             }
-            set
-            {
+            set {
                 _firstLineIndent = value;
             }
         }
@@ -111,8 +106,7 @@ namespace Elistia.DotNetRtfWriter
 
         public override RtfCharFormat DefaultCharFormat
         {
-            get
-            {
+            get {
                 if (_defaultCharFormat == null) {
                     _defaultCharFormat = new RtfCharFormat(-1, -1, _text.Length);
                 }
@@ -122,48 +116,41 @@ namespace Elistia.DotNetRtfWriter
 
         public override bool StartNewPage
         {
-            get
-            {
+            get {
                 return _startNewPage;
             }
-            set
-            {
+            set {
                 _startNewPage = value;
             }
         }
-        
+
         public override Align Alignment
         {
-            get
-            {
+            get {
                 return _align;
             }
-            set
-            {
+            set {
                 _align = value;
             }
         }
 
         public override Margins Margins
         {
-            get
-            {
+            get {
                 return _margins;
             }
         }
-        
+
         internal override string BlockHead
         {
-            set
-            {
+            set {
                 _blockHead = value;
             }
         }
 
         internal override string BlockTail
         {
-            set
-            {
+            set {
                 _blockTail = value;
             }
         }
@@ -182,12 +169,12 @@ namespace Elistia.DotNetRtfWriter
             _charFormats.Add(fmt);
             return fmt;
         }
-        
+
         public RtfCharFormat AddCharFormat()
         {
             return AddCharFormat(-1, -1);
         }
-        
+
         public RtfFootnote AddFootnote(int position)
         {
             if (!_allowFootnote) {
@@ -394,12 +381,12 @@ namespace Elistia.DotNetRtfWriter
                 if (pos >= _text.Length) {
                     continue;
                 }
-                
+
                 count = 0;
                 node = tokList.First;
                 while (node != null) {
                     Token tok = node.Value;
-                    
+
                     if (!tok.isControl) {
                         count += tok.text.Length;
                         if (count - 1 == pos) {
@@ -475,10 +462,10 @@ namespace Elistia.DotNetRtfWriter
                 }
             }
             #endregion
-            
+
             return tokList;
         }
-        
+
         protected string ExtractTokenList(LinkedList<Token> tokList)
         {
             LinkedListNode<Token> node;
@@ -495,7 +482,7 @@ namespace Elistia.DotNetRtfWriter
             }
             return result.ToString();
         }
-        
+
         public override string Render()
         {
             LinkedList<Token> tokList = BuildTokenList();
@@ -504,7 +491,7 @@ namespace Elistia.DotNetRtfWriter
             if (_startNewPage) {
                 result.Append(@"\pagebb");
             }
-            
+
             if (_linespacing >= 0) {
                 result.Append(@"\sl-" + RtfUtility.pt2Twip(_linespacing) + @"\slmult0");
             }
@@ -526,7 +513,7 @@ namespace Elistia.DotNetRtfWriter
             result.AppendFormat(@"\{0}par", ContentDirection);
             result.Append(AlignmentCode());
             result.AppendLine();
-            
+
             // insert default char format intto the 1st position of _charFormats
             if (_defaultCharFormat != null) {
                 result.AppendLine(_defaultCharFormat.RenderHead());
@@ -535,7 +522,7 @@ namespace Elistia.DotNetRtfWriter
             if (_defaultCharFormat != null) {
                 result.Append(_defaultCharFormat.RenderTail());
             }
-            
+
             result.AppendLine(_blockTail);
             return result.ToString();
         }

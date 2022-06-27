@@ -51,53 +51,47 @@ namespace Elistia.DotNetRtfWriter
             _header = null;
             _footer = null;
         }
-        
+
         public Margins Margins
         {
-            get
-            {
+            get {
                 return _margins;
             }
-            set
-            {
+            set {
                 _margins = value;
             }
         }
 
         public RtfHeaderFooter Header
         {
-            get
-            {
+            get {
                 if (_header == null) {
                     _header = new RtfHeaderFooter(HeaderFooterType.Header, ReadingDirection);
                 }
                 return _header;
             }
         }
-        
+
         public RtfHeaderFooter Footer
         {
-            get
-            {
+            get {
                 if (_footer == null) {
                     _footer = new RtfHeaderFooter(HeaderFooterType.Footer, ReadingDirection);
                 }
                 return _footer;
             }
         }
-        
+
         public ColorDescriptor DefaultColor
         {
-            get
-            {
-                return  new ColorDescriptor(0);
+            get {
+                return new ColorDescriptor(0);
             }
         }
-        
+
         public FontDescriptor DefaultFont
         {
-            get
-            {
+            get {
                 return new FontDescriptor(0);
             }
         }
@@ -115,7 +109,7 @@ namespace Elistia.DotNetRtfWriter
             _fontTable.Add(fontName);
             return new FontDescriptor(_fontTable.IndexOf(fontName));
         }
-        
+
         public ColorDescriptor CreateColor(RtfColor color)
         {
             if (_colorTable.Contains(color)) {
@@ -124,7 +118,7 @@ namespace Elistia.DotNetRtfWriter
             _colorTable.Add(color);
             return new ColorDescriptor(_colorTable.IndexOf(color));
         }
-        
+
         public RtfTable AddTable(int rowCount, int colCount, float fontSize)
         {
             var horizontalWidth = RtfUtility.PaperWidthInPt(_paper, _orientation) - _margins[Direction.Left] - _margins[Direction.Right];
@@ -134,7 +128,7 @@ namespace Elistia.DotNetRtfWriter
         public override string Render()
         {
             StringBuilder rtf = new StringBuilder();
-            
+
             // Prologue
             rtf.AppendLine(@"{\rtf1\ansi\deff0");
             rtf.AppendLine();
@@ -183,13 +177,13 @@ namespace Elistia.DotNetRtfWriter
 
             // Document body
             rtf.Append(base.Render());
-            
+
             // Ending
             rtf.AppendLine("}");
-            
+
             return rtf.ToString();
         }
-        
+
         public void Save(string fname)
         {
             StreamWriter w = new StreamWriter(fname);

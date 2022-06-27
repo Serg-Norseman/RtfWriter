@@ -36,11 +36,10 @@ namespace Elistia.DotNetRtfWriter
             ParentTable = parentTable;
             ReadingDirection = direction;
         }
-        
+
         internal bool IsBeginOfColSpan
         {
-            get
-            {
+            get {
                 if (_mergeInfo == null) {
                     return false;
                 }
@@ -50,8 +49,7 @@ namespace Elistia.DotNetRtfWriter
 
         internal bool IsBeginOfRowSpan
         {
-            get
-            {
+            get {
                 if (_mergeInfo == null) {
                     return false;
                 }
@@ -61,8 +59,7 @@ namespace Elistia.DotNetRtfWriter
 
         public bool IsMerged
         {
-            get
-            {
+            get {
                 if (_mergeInfo == null) {
                     return false;
                 }
@@ -72,32 +69,27 @@ namespace Elistia.DotNetRtfWriter
 
         internal CellMergeInfo MergeInfo
         {
-            get
-            {
+            get {
                 return _mergeInfo;
             }
-            set
-            {
+            set {
                 _mergeInfo = value;
             }
         }
 
         public float Width
         {
-            get
-            {
+            get {
                 return _width;
             }
-            set
-            {
+            set {
                 _width = value;
             }
         }
 
         public Borders Borders
         {
-            get
-            {
+            get {
                 return _borders;
             }
         }
@@ -108,40 +100,34 @@ namespace Elistia.DotNetRtfWriter
 
         public Align Alignment
         {
-            get
-            {
+            get {
                 return _halign;
             }
-            set
-            {
+            set {
                 _halign = value;
             }
         }
-        
+
         public AlignVertical AlignmentVertical
         {
-            get
-            {
+            get {
                 return _valign;
             }
-            set
-            {
+            set {
                 _valign = value;
             }
         }
-        
+
         public int RowIndex
         {
-            get
-            {
+            get {
                 return _rowIndex;
             }
         }
-        
+
         public int ColIndex
         {
-            get
-            {
+            get {
                 return _colIndex;
             }
         }
@@ -160,7 +146,7 @@ namespace Elistia.DotNetRtfWriter
         {
             StringBuilder result = new StringBuilder();
             string align = "";
-            
+
             switch (_halign) {
                 case Align.Left:
                     align = @"\ql";
@@ -178,7 +164,7 @@ namespace Elistia.DotNetRtfWriter
                     align = @"\qd";
                     break;
             }
-            
+
 
             if (base.Blocks.Count <= 0) {
                 result.AppendLine(@"\pard\intbl");
@@ -209,7 +195,7 @@ namespace Elistia.DotNetRtfWriter
                     result.AppendLine(block.Render());
                 }
             }
-            
+
             result.AppendLine(@"\cell");
             return result.ToString();
         }

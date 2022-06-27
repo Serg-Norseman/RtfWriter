@@ -40,7 +40,7 @@ namespace Elistia.DotNetRtfWriter
             _bookmark = "";
             SetRange(begin, end, textLength);
         }
-        
+
         internal void CopyFrom(RtfCharFormat src)
         {
             if (src == null) {
@@ -83,135 +83,114 @@ namespace Elistia.DotNetRtfWriter
             _begin = begin;
             _end = end;
         }
-        
+
         internal int Begin
         {
-            get
-            {
+            get {
                 return _begin;
             }
         }
-        
+
         internal int End
         {
-            get
-            {
+            get {
                 return _end;
             }
         }
 
         public string Bookmark
         {
-            get
-            {
+            get {
                 return _bookmark;
             }
-            set
-            {
+            set {
                 _bookmark = value;
             }
         }
 
         public string LocalHyperlink
         {
-            get
-            {
+            get {
                 return _localHyperlink;
             }
-            set
-            {
+            set {
                 _localHyperlink = value;
             }
         }
 
         public string LocalHyperlinkTip
         {
-            get
-            {
+            get {
                 return _localHyperlinkTip;
             }
-            set
-            {
+            set {
                 _localHyperlinkTip = value;
             }
         }
 
         public FontDescriptor Font
         {
-            get
-            {
+            get {
                 return _font;
             }
-            set
-            {
+            set {
                 _font = value;
             }
         }
-        
+
         public FontDescriptor AnsiFont
         {
-            get
-            {
+            get {
                 return _ansiFont;
             }
-            set
-            {
+            set {
                 _ansiFont = value;
             }
         }
-        
+
         public float FontSize
         {
-            get
-            {
+            get {
                 return _fontSize;
             }
-            set
-            {
+            set {
                 _fontSize = value;
             }
         }
-        
+
         public FontStyle FontStyle
         {
-            get
-            {
+            get {
                 return _fontStyle;
             }
         }
-        
+
         public ColorDescriptor FgColor
         {
-            get
-            {
+            get {
                 return _fgColor;
             }
-            set
-            {
+            set {
                 _fgColor = value;
             }
         }
 
         public ColorDescriptor BgColor
         {
-            get
-            {
+            get {
                 return _bgColor;
             }
-            set
-            {
+            set {
                 _bgColor = value;
             }
         }
-        
+
         public TwoInOneStyle TwoInOneStyle
         {
-            get
-            {
+            get {
                 return _twoInOneStyle;
             }
-            set
-            {
+            set {
                 _twoInOneStyle = value;
             }
         }
@@ -219,11 +198,12 @@ namespace Elistia.DotNetRtfWriter
         internal string RenderHead()
         {
             StringBuilder result = new StringBuilder("{");
-            
+
             if (!string.IsNullOrEmpty(_localHyperlink)) {
                 result.Append(@"{\field{\*\fldinst HYPERLINK \\l ");
                 result.Append("\"" + _localHyperlink + "\"");
-                if (!string.IsNullOrEmpty(_localHyperlinkTip)) result.Append(" \\\\o \"" + _localHyperlinkTip + "\"");
+                if (!string.IsNullOrEmpty(_localHyperlinkTip))
+                    result.Append(" \\\\o \"" + _localHyperlinkTip + "\"");
                 result.Append(@"}{\fldrslt{");
             }
 
@@ -248,12 +228,11 @@ namespace Elistia.DotNetRtfWriter
                 //result.Append(@"\chshdng0\chcbpat" + _bgColor.Value + @"\cb" + _bgColor.Value);
                 result.AppendFormat(@"\highlight{0}", _bgColor.Value);
             }
-            
-            foreach(var fontStyle in _fontStyleMap)
-            {
+
+            foreach (var fontStyle in _fontStyleMap) {
                 if (FontStyle.ContainsStyleAdd(fontStyle.Key)) {
                     result.Append(@"\" + fontStyle.Value);
-                } else if(FontStyle.ContainsStyleRemove(fontStyle.Key)) {
+                } else if (FontStyle.ContainsStyleRemove(fontStyle.Key)) {
                     result.Append(@"\" + fontStyle.Value + "0");
                 }
             }
@@ -296,7 +275,7 @@ namespace Elistia.DotNetRtfWriter
             if (!string.IsNullOrEmpty(_bookmark)) {
                 result.Append(@"{\*\bkmkend " + _bookmark + "}");
             }
-            
+
             if (!string.IsNullOrEmpty(_localHyperlink)) {
                 result.Append(@"}}}");
             }

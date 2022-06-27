@@ -12,7 +12,7 @@ namespace Elistia.DotNetRtfWriter
             Date,
             Time,
         }
-        
+
         private static string[] ControlWordPool = new string[] {
             // correspond with FiledControlWords enum
             "",
@@ -21,23 +21,23 @@ namespace Elistia.DotNetRtfWriter
             @"{\field{\*\fldinst DATE }}",
             @"{\field{\*\fldinst TIME }}"
         };
-        
+
         private int _position;
         private FieldType _type;
-        
+
         internal RtfFieldControlWord(int position, FieldType type)
         {
             _position = position;
             _type = type;
         }
-        
+
         internal int Position
         {
             get {
                 return _position;
             }
         }
-        
+
         public override string Render()
         {
             return ControlWordPool[(int)_type];

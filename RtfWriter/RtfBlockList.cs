@@ -18,7 +18,7 @@ namespace Elistia.DotNetRtfWriter
         /// Default character formats within this container.
         /// </summary>
         private RtfCharFormat _defaultCharFormat;
-        
+
         private bool _allowParagraph;
         private bool _allowFootnote;
         private bool _allowControlWord;
@@ -68,7 +68,7 @@ namespace Elistia.DotNetRtfWriter
             : this(true, true, true, true, true)
         {
         }
-        
+
         /// <summary>
         /// Internal use only.
         /// Constructor specifying allowed content blocks to be contained.
@@ -108,7 +108,7 @@ namespace Elistia.DotNetRtfWriter
                 _blocks.Add(block);
             }
         }
-        
+
         /// <summary>
         /// Add a paragraph to this container.
         /// </summary>
@@ -150,7 +150,7 @@ namespace Elistia.DotNetRtfWriter
             AddBlock(block);
             return block;
         }
-        
+
         /// <summary>
         /// Internal use only.
         /// Transfer all content blocks to another RtfBlockList object.
@@ -172,7 +172,7 @@ namespace Elistia.DotNetRtfWriter
         public override string Render()
         {
             StringBuilder result = new StringBuilder();
-            
+
             result.AppendLine();
             for (int i = 0; i < _blocks.Count; i++) {
                 if (_defaultCharFormat != null && _blocks[i].DefaultCharFormat != null) {

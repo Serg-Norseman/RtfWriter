@@ -137,7 +137,7 @@ namespace RtfWriter.Demo
             // Step 3. (Optional) Set text alignment for each cell, row height, column width,
             //			border style, etc.
             for (var i = 0; i < table.RowCount; i++) {
-                for(var j = 0; j < table.ColCount; j++) {
+                for (var j = 0; j < table.ColCount; j++) {
                     table.Cell(i, j).AddParagraph().SetText("CELL " + i.ToString() + "," + j.ToString());
                 }
             }
@@ -203,7 +203,7 @@ namespace RtfWriter.Demo
             // ==========================================================================
             // Open the RTF file we just saved
             // ==========================================================================
-            var p = new Process {StartInfo = {FileName = "Demo.rtf"}};
+            var p = new Process { StartInfo = { FileName = "Demo.rtf" } };
             p.Start();
         }
     }

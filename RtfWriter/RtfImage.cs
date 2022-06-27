@@ -31,7 +31,7 @@ namespace Elistia.DotNetRtfWriter
             _blockTail = @"}";
             _startNewPage = false;
             _startNewPara = false;
-            
+
             _imgType = type;
             _width = width;
             _height = height;
@@ -44,56 +44,47 @@ namespace Elistia.DotNetRtfWriter
 
         public override Align Alignment
         {
-            get
-            {
+            get {
                 return _alignment;
             }
-            set
-            {
+            set {
                 _alignment = value;
             }
         }
 
         public override Margins Margins
         {
-            get
-            {
+            get {
                 return _margins;
             }
         }
 
         public override bool StartNewPage
         {
-            get
-            {
+            get {
                 return _startNewPage;
             }
-            set
-            {
+            set {
                 _startNewPage = value;
             }
         }
 
         public bool StartNewPara
         {
-            get
-            {
+            get {
                 return _startNewPara;
             }
-            set
-            {
+            set {
                 _startNewPara = value;
             }
         }
 
         public float Width
         {
-            get
-            {
+            get {
                 return _width;
             }
-            set
-            {
+            set {
                 if (_keepAspectRatio && _width > 0) {
                     float ratio = _height / _width;
                     _height = value * ratio;
@@ -104,12 +95,10 @@ namespace Elistia.DotNetRtfWriter
 
         public float Heigth
         {
-            get
-            {
+            get {
                 return _height;
             }
-            set
-            {
+            set {
                 if (_keepAspectRatio && _height > 0) {
                     float ratio = _width / _height;
                     _width = value * ratio;
@@ -117,15 +106,13 @@ namespace Elistia.DotNetRtfWriter
                 _height = value;
             }
         }
-        
+
         public bool KeepAspectRatio
         {
-            get
-            {
+            get {
                 return _keepAspectRatio;
             }
-            set
-            {
+            set {
                 _keepAspectRatio = value;
             }
         }
@@ -133,8 +120,7 @@ namespace Elistia.DotNetRtfWriter
         public override RtfCharFormat DefaultCharFormat
         {
             // DefaultCharFormat is meaningless for RtfImage.
-            get
-            {
+            get {
                 return null;
             }
         }
@@ -143,30 +129,26 @@ namespace Elistia.DotNetRtfWriter
         {
             StringBuilder result = new StringBuilder();
 
-            for (int i = 0; i < _imgByte.Length; i++)
-            {
-                if (i != 0 && i % 60 == 0)
-                {
+            for (int i = 0; i < _imgByte.Length; i++) {
+                if (i != 0 && i % 60 == 0) {
                     result.AppendLine();
                 }
                 result.AppendFormat("{0:x2}", _imgByte[i]);
             }
-            
+
             return result.ToString();
         }
 
         internal override string BlockHead
         {
-            set
-            {
+            set {
                 _blockHead = value;
             }
         }
 
         internal override string BlockTail
         {
-            set
-            {
+            set {
                 _blockTail = value;
             }
         }
@@ -219,10 +201,11 @@ namespace Elistia.DotNetRtfWriter
                 result.Append(@"\picwgoal" + RtfUtility.pt2Twip(_width));
             }
             result.AppendLine();
-            
+
             result.AppendLine(ExtractImage());
             result.AppendLine("}}");
-            if (_startNewPara) result.Append(@"\par");
+            if (_startNewPara)
+                result.Append(@"\par");
             result.AppendLine(_blockTail);
             return result.ToString();
         }
