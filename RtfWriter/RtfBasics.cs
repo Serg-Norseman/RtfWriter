@@ -176,7 +176,7 @@ namespace Elistia.DotNetRtfWriter
         /// that is already in the set has no effect.
         /// </summary>
         /// <param name="sty">Font style to be added.</param>
-        public void addStyle(FontStyleFlag sty)
+        public void AddStyle(FontStyleFlag sty)
         {
             _styleAdd |= (UInt32)sty;
             _styleRemove &= ~((UInt32)sty);
@@ -187,7 +187,7 @@ namespace Elistia.DotNetRtfWriter
         /// that is already not in the set has no effect.
         /// </summary>
         /// <param name="sty">Font style to be removed.</param>
-        public void removeStyle(FontStyleFlag sty)
+        public void RemoveStyle(FontStyleFlag sty)
         {
             _styleAdd &= ~((UInt32)sty);
             _styleRemove |= (UInt32)sty;
@@ -198,7 +198,7 @@ namespace Elistia.DotNetRtfWriter
         /// </summary>
         /// <param name="sty">Font style to be tested.</param>
         /// <returns>True if the font style is in the set; false otherwise.</returns>
-        public bool containsStyleAdd(FontStyleFlag sty)
+        public bool ContainsStyleAdd(FontStyleFlag sty)
         {
             if ((_styleAdd & (UInt32)sty) > 0) {
                 return true;
@@ -206,7 +206,7 @@ namespace Elistia.DotNetRtfWriter
             return false;
         }
 
-        public bool containsStyleRemove(FontStyleFlag sty)
+        public bool ContainsStyleRemove(FontStyleFlag sty)
         {
             if ((_styleRemove & (UInt32)sty) > 0) {
                 return true;

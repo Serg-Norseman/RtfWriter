@@ -14,10 +14,10 @@ namespace Elistia.DotNetRtfWriter
             return new RtfColor((byte)color.Rb, (byte)color.Gb, (byte)color.Bb);
         }
 
-        public static ColorDescriptor createColor(this RtfDocument document, Color color)
+        public static ColorDescriptor CreateColor(this RtfDocument document, Color color)
         {
             var rtfColor = color.ToRtfColor();
-            return document.createColor(rtfColor);
+            return document.CreateColor(rtfColor);
         }
 
         // RtfImageType { Jpg = 1, Gif, Png }
@@ -66,13 +66,13 @@ namespace Elistia.DotNetRtfWriter
         /// <param name="imgFname">Filename of the image.</param>
         /// <param name="imgType">File type of the image.</param>
         /// <returns>Image being added.</returns>
-        public static RtfImage addImage(this RtfBlockList blockList, string imgFname, RtfImageType imgType)
+        public static RtfImage AddImage(this RtfBlockList blockList, string imgFname, RtfImageType imgType)
         {
             if (!blockList._allowImage) {
                 throw new Exception("Image is not allowed.");
             }
             RtfImage block = FromFile(imgFname, imgType);
-            blockList.addBlock(block);
+            blockList.AddBlock(block);
             return block;
         }
 
@@ -81,7 +81,7 @@ namespace Elistia.DotNetRtfWriter
         /// </summary>
         /// <param name="imgFname">Filename of the image.</param>
         /// <returns>Image being added.</returns>
-        public static RtfImage addImage(this RtfBlockList blockList, string imgFname)
+        public static RtfImage AddImage(this RtfBlockList blockList, string imgFname)
         {
             int dot = imgFname.LastIndexOf(".");
             if (dot < 0) {
@@ -92,11 +92,11 @@ namespace Elistia.DotNetRtfWriter
             switch (ext) {
                 case "jpg":
                 case "jpeg":
-                    return addImage(blockList, imgFname, RtfImageType.Jpg);
+                    return AddImage(blockList, imgFname, RtfImageType.Jpg);
                 case "gif":
-                    return addImage(blockList, imgFname, RtfImageType.Gif);
+                    return AddImage(blockList, imgFname, RtfImageType.Gif);
                 case "png":
-                    return addImage(blockList, imgFname, RtfImageType.Png);
+                    return AddImage(blockList, imgFname, RtfImageType.Png);
                 default:
                     throw new Exception("Cannot determine image type from the filename extension: " + imgFname);
             }
@@ -107,13 +107,13 @@ namespace Elistia.DotNetRtfWriter
         /// </summary>
         /// <param name="imageStream">MemoryStream containing image.</param>
         /// <returns>Image being added.</returns>
-        /*public static RtfImage addImage(this RtfBlockList blockList, MemoryStream imageStream)
+        /*public static RtfImage AddImage(this RtfBlockList blockList, MemoryStream imageStream)
         {
             if (!blockList._allowImage) {
                 throw new Exception("Image is not allowed.");
             }
             RtfImage block = FromStream(imageStream);
-            blockList.addBlock(block);
+            blockList.AddBlock(block);
             return block;
         }*/
     }

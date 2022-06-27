@@ -141,7 +141,7 @@ namespace Elistia.DotNetRtfWriter
 
         public float OuterLeftBorderClearance { get; set; }
 
-        public void setBorderColor(ColorDescriptor color)
+        public void SetBorderColor(ColorDescriptor color)
         {
             this.Borders[Direction.Top].Color = color;
             this.Borders[Direction.Bottom].Color = color;
@@ -149,7 +149,7 @@ namespace Elistia.DotNetRtfWriter
             this.Borders[Direction.Right].Color = color;
         }
 
-        public override string render()
+        public override string Render()
         {
             StringBuilder result = new StringBuilder();
             string align = "";
@@ -179,7 +179,7 @@ namespace Elistia.DotNetRtfWriter
                 for (int i = 0; i < base.Blocks.Count; i++) {
                     RtfBlock block = base.Blocks[i];
                     if (DefaultCharFormat != null && block.DefaultCharFormat != null) {
-                        block.DefaultCharFormat.copyFrom(DefaultCharFormat);
+                        block.DefaultCharFormat.CopyFrom(DefaultCharFormat);
                     }
                     if (block.Margins[Direction.Top] < 0) {
                         block.Margins[Direction.Top] = 0;
@@ -199,7 +199,7 @@ namespace Elistia.DotNetRtfWriter
                         block.BlockHead = @"\par" + align;
                     }
                     block.BlockTail = "";
-                    result.AppendLine(block.render());
+                    result.AppendLine(block.Render());
                 }
             }
             

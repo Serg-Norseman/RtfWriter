@@ -29,7 +29,7 @@ namespace Elistia.DotNetRtfWriter
             return Convert.ToInt32(pt * 2);
         }
         
-        private static int[] paperDimensions(PaperSize paperSize)
+        private static int[] PaperDimensions(PaperSize paperSize)
         {
             switch(paperSize) {
                 case PaperSize.A4:
@@ -43,9 +43,9 @@ namespace Elistia.DotNetRtfWriter
             }
         }
         
-        public static int paperWidthInTwip(PaperSize paperSize, PaperOrientation orientation)
+        public static int PaperWidthInTwip(PaperSize paperSize, PaperOrientation orientation)
         {
-            int[] d = paperDimensions(paperSize);
+            int[] d = PaperDimensions(paperSize);
             if (orientation == PaperOrientation.Portrait) {
                 if (d[0] < d[1]) {
                     return d[0];
@@ -61,9 +61,9 @@ namespace Elistia.DotNetRtfWriter
             }
         }
         
-        public static int paperHeightInTwip(PaperSize paperSize, PaperOrientation orientation)
+        public static int PaperHeightInTwip(PaperSize paperSize, PaperOrientation orientation)
         {
-            int[] d = paperDimensions(paperSize);
+            int[] d = PaperDimensions(paperSize);
             if (orientation == PaperOrientation.Portrait) {
                 if (d[0] < d[1]) {
                     return d[1];
@@ -79,17 +79,17 @@ namespace Elistia.DotNetRtfWriter
             }
         }
 
-        public static float paperWidthInPt(PaperSize paperSize, PaperOrientation orientation)
+        public static float PaperWidthInPt(PaperSize paperSize, PaperOrientation orientation)
         {
-            return (float) paperWidthInTwip(paperSize, orientation) / 20.0F;
+            return (float) PaperWidthInTwip(paperSize, orientation) / 20.0F;
         }
 
-        public static float paperHeightInPt(PaperSize paperSize, PaperOrientation orientation)
+        public static float PaperHeightInPt(PaperSize paperSize, PaperOrientation orientation)
         {
-            return (float)paperHeightInTwip(paperSize, orientation) / 20.0F;
+            return (float)PaperHeightInTwip(paperSize, orientation) / 20.0F;
         }
 
-        public static string unicodeEncode(string str)
+        public static string UnicodeEncode(string str)
         {
             StringBuilder result = new StringBuilder();
             int unicode;
@@ -128,7 +128,7 @@ namespace Elistia.DotNetRtfWriter
         /// </summary>
         /// <param name="str">string to be encoded</param>
         /// <returns>encoded string</returns>
-        public static string big5Encode(string str)
+        public static string Big5Encode(string str)
         {
             string result = "";
             Encoding big5 = Encoding.GetEncoding(950);

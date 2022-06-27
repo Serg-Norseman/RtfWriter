@@ -19,7 +19,7 @@ namespace Elistia.DotNetRtfWriter
             _type = type;
         }
 
-        public override string render()
+        public override string Render()
         {
             StringBuilder result = new StringBuilder();
 
@@ -34,9 +34,9 @@ namespace Elistia.DotNetRtfWriter
             for (int i = 0; i < base.Blocks.Count; i++) {
                 RtfBlock block = base.Blocks[i];
                 if (base.DefaultCharFormat != null && block.DefaultCharFormat != null) {
-                    block.DefaultCharFormat.copyFrom(base.DefaultCharFormat);
+                    block.DefaultCharFormat.CopyFrom(base.DefaultCharFormat);
                 }
-                result.AppendLine(((RtfBlock)Blocks[i]).render());
+                result.AppendLine(block.Render());
             }
             result.AppendLine("}");
             return result.ToString();

@@ -38,7 +38,7 @@ namespace Elistia.DotNetRtfWriter
             }
         }
         
-        public override string render()
+        public override string Render()
         {
             return ControlWordPool[(int)_type];
         }

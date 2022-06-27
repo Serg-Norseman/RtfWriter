@@ -13,7 +13,7 @@ namespace Elistia.DotNetRtfWriter
         /// Emit RTF code.
         /// </summary>
         /// <returns>RTF code</returns>
-        abstract public string render();
+        abstract public string Render();
     }
 
     /// <summary>

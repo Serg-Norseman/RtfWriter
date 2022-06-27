@@ -38,10 +38,10 @@ namespace Elistia.DotNetRtfWriter
             _fgColor = null;
             _twoInOneStyle = TwoInOneStyle.NotEnabled;
             _bookmark = "";
-            setRange(begin, end, textLength);
+            SetRange(begin, end, textLength);
         }
         
-        internal void copyFrom(RtfCharFormat src)
+        internal void CopyFrom(RtfCharFormat src)
         {
             if (src == null) {
                 return;
@@ -68,7 +68,7 @@ namespace Elistia.DotNetRtfWriter
             }
         }
 
-        private void setRange(int begin, int end, int textLength)
+        private void SetRange(int begin, int end, int textLength)
         {
             if (begin > end) {
                 throw new Exception("Invalid range: (" + begin + ", " + end + ")");
@@ -216,7 +216,7 @@ namespace Elistia.DotNetRtfWriter
             }
         }
 
-        internal string renderHead()
+        internal string RenderHead()
         {
             StringBuilder result = new StringBuilder("{");
             
@@ -250,9 +250,9 @@ namespace Elistia.DotNetRtfWriter
             
             foreach(var fontStyle in _fontStyleMap)
             {
-                if (FontStyle.containsStyleAdd(fontStyle.Key)) {
+                if (FontStyle.ContainsStyleAdd(fontStyle.Key)) {
                     result.Append(@"\" + fontStyle.Value);
-                } else if(FontStyle.containsStyleRemove(fontStyle.Key)) {
+                } else if(FontStyle.ContainsStyleRemove(fontStyle.Key)) {
                     result.Append(@"\" + fontStyle.Value + "0");
                 }
             }
@@ -288,7 +288,7 @@ namespace Elistia.DotNetRtfWriter
             return result.ToString();
         }
 
-        internal string renderTail()
+        internal string RenderTail()
         {
             StringBuilder result = new StringBuilder("");
 

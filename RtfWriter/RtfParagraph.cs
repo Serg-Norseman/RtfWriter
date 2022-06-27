@@ -98,7 +98,7 @@ namespace Elistia.DotNetRtfWriter
             }
         }
 
-        public void setText(string text)
+        public void SetText(string text)
         {
             _text = new StringBuilder(text);
         }
@@ -170,19 +170,19 @@ namespace Elistia.DotNetRtfWriter
         /// </summary>
         /// <param name="begin">Beginning of the range</param>
         /// <param name="end">End of the range</param>
-        public RtfCharFormat addCharFormat(int begin, int end)
+        public RtfCharFormat AddCharFormat(int begin, int end)
         {
             RtfCharFormat fmt = new RtfCharFormat(begin, end, _text.Length);
             _charFormats.Add(fmt);
             return fmt;
         }
         
-        public RtfCharFormat addCharFormat()
+        public RtfCharFormat AddCharFormat()
         {
-            return addCharFormat(-1, -1);
+            return AddCharFormat(-1, -1);
         }
         
-        public RtfFootnote addFootnote(int position)
+        public RtfFootnote AddFootnote(int position)
         {
             if (!_allowFootnote) {
                 throw new Exception("Footnote is not allowed.");
@@ -192,7 +192,7 @@ namespace Elistia.DotNetRtfWriter
             return fnt;
         }
 
-        public void addControlWord(int position, RtfFieldControlWord.FieldType type)
+        public void AddControlWord(int position, RtfFieldControlWord.FieldType type)
         {
             if (!_allowControlWord) {
                 throw new Exception("ControlWord is not allowed.");
@@ -207,7 +207,7 @@ namespace Elistia.DotNetRtfWriter
             _controlWords.Add(w);
         }
 
-        protected LinkedList<Token> buildTokenList()
+        protected LinkedList<Token> BuildTokenList()
         {
             int count;
             Token token;
@@ -304,7 +304,7 @@ namespace Elistia.DotNetRtfWriter
                 if (r.head == 0) {
                     Token newTok = new Token();
                     newTok.isControl = true;
-                    newTok.text = r.format.renderHead();
+                    newTok.text = r.format.RenderHead();
                     tokList.AddFirst(newTok);
                 } else {
                     node = tokList.First;
@@ -316,7 +316,7 @@ namespace Elistia.DotNetRtfWriter
                             if (count == r.head) {
                                 Token newTok = new Token();
                                 newTok.isControl = true;
-                                newTok.text = r.format.renderHead();
+                                newTok.text = r.format.RenderHead();
                                 while (node.Next != null && node.Next.Value.isControl) {
                                     node = node.Next;
                                 }
@@ -330,7 +330,7 @@ namespace Elistia.DotNetRtfWriter
                                 newNode = tokList.AddAfter(node, newTok1);
                                 Token newTok2 = new Token();
                                 newTok2.isControl = true;
-                                newTok2.text = r.format.renderHead();
+                                newTok2.text = r.format.RenderHead();
                                 newNode = tokList.AddAfter(newNode, newTok2);
                                 Token newTok3 = new Token();
                                 newTok3.isControl = false;
@@ -354,7 +354,7 @@ namespace Elistia.DotNetRtfWriter
                         if (count - 1 == r.tail) {
                             Token newTok = new Token();
                             newTok.isControl = true;
-                            newTok.text = r.format.renderTail();
+                            newTok.text = r.format.RenderTail();
                             tokList.AddAfter(node, newTok);
                             break;
                         } else if (count - 1 > r.tail) {
@@ -365,7 +365,7 @@ namespace Elistia.DotNetRtfWriter
                             newNode = tokList.AddAfter(node, newTok1);
                             Token newTok2 = new Token();
                             newTok2.isControl = true;
-                            newTok2.text = r.format.renderTail();
+                            newTok2.text = r.format.RenderTail();
                             newNode = tokList.AddAfter(newNode, newTok2);
                             Token newTok3 = new Token();
                             newTok3.isControl = false;
@@ -399,7 +399,7 @@ namespace Elistia.DotNetRtfWriter
                         if (count - 1 == pos) {
                             Token newTok = new Token();
                             newTok.isControl = true;
-                            newTok.text = _footnotes[i].render();
+                            newTok.text = _footnotes[i].Render();
                             tokList.AddAfter(node, newTok);
                             break;
                         } else if (count - 1 > pos) {
@@ -410,7 +410,7 @@ namespace Elistia.DotNetRtfWriter
                             newNode = tokList.AddAfter(node, newTok1);
                             Token newTok2 = new Token();
                             newTok2.isControl = true;
-                            newTok2.text = _footnotes[i].render();
+                            newTok2.text = _footnotes[i].Render();
                             newNode = tokList.AddAfter(newNode, newTok2);
                             Token newTok3 = new Token();
                             newTok3.isControl = false;
@@ -444,7 +444,7 @@ namespace Elistia.DotNetRtfWriter
                         if (count - 1 == pos) {
                             Token newTok = new Token();
                             newTok.isControl = true;
-                            newTok.text = _controlWords[i].render();
+                            newTok.text = _controlWords[i].Render();
                             tokList.AddAfter(node, newTok);
                             break;
                         } else if (count - 1 > pos) {
@@ -455,7 +455,7 @@ namespace Elistia.DotNetRtfWriter
                             newNode = tokList.AddAfter(node, newTok1);
                             Token newTok2 = new Token();
                             newTok2.isControl = true;
-                            newTok2.text = _controlWords[i].render();
+                            newTok2.text = _controlWords[i].Render();
                             newNode = tokList.AddAfter(newNode, newTok2);
                             Token newTok3 = new Token();
                             newTok3.isControl = false;
@@ -473,7 +473,7 @@ namespace Elistia.DotNetRtfWriter
             return tokList;
         }
         
-        protected string extractTokenList(LinkedList<Token> tokList)
+        protected string ExtractTokenList(LinkedList<Token> tokList)
         {
             LinkedListNode<Token> node;
             StringBuilder result = new StringBuilder();
@@ -483,16 +483,16 @@ namespace Elistia.DotNetRtfWriter
                 if (node.Value.isControl) {
                     result.Append(node.Value.text);
                 } else {
-                    result.Append(RtfUtility.unicodeEncode(node.Value.text));
+                    result.Append(RtfUtility.UnicodeEncode(node.Value.text));
                 }
                 node = node.Next;
             }
             return result.ToString();
         }
         
-        public override string render()
+        public override string Render()
         {
-            LinkedList<Token> tokList = buildTokenList();
+            LinkedList<Token> tokList = BuildTokenList();
             StringBuilder result = new StringBuilder(_blockHead);
 
             if (_startNewPage) {
@@ -522,11 +522,11 @@ namespace Elistia.DotNetRtfWriter
             
             // insert default char format intto the 1st position of _charFormats
             if (_defaultCharFormat != null) {
-                result.AppendLine(_defaultCharFormat.renderHead());
+                result.AppendLine(_defaultCharFormat.RenderHead());
             }
-            result.AppendLine(extractTokenList(tokList));
+            result.AppendLine(ExtractTokenList(tokList));
             if (_defaultCharFormat != null) {
-                result.Append(_defaultCharFormat.renderTail());
+                result.Append(_defaultCharFormat.RenderTail());
             }
             
             result.AppendLine(_blockTail);

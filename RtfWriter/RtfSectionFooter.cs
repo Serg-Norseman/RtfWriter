@@ -14,13 +14,13 @@ namespace Elistia.DotNetRtfWriter
             }
         }
 
-        public override string render()
+        public override string Render()
         {
             StringBuilder result = new StringBuilder();
 
             result.AppendLine(@"{\footerr \ltrpar \pard\plain");
             result.AppendLine(@"\par ");
-            result.Append(base.render());
+            result.Append(base.Render());
             result.AppendLine(@"\par");
             result.AppendLine(@"}");
 

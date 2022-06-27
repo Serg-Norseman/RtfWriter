@@ -28,14 +28,14 @@ namespace Elistia.DotNetRtfWriter
             }
         }
         
-        public override string render()
+        public override string Render()
         {
             StringBuilder result = new StringBuilder();
 
             result.AppendLine(@"{\super\chftn}");
             result.AppendLine(@"{\footnote\plain\chftn");
-            ((RtfBlock)base.Blocks[base.Blocks.Count - 1]).BlockTail = "}";
-            result.Append(base.render());
+            base.Blocks[base.Blocks.Count - 1].BlockTail = "}";
+            result.Append(base.Render());
             result.AppendLine("}");
             return result.ToString();
         }

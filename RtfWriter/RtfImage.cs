@@ -137,7 +137,7 @@ namespace Elistia.DotNetRtfWriter
             }
         }
 
-        private string extractImage()
+        private string ExtractImage()
         {
             StringBuilder result = new StringBuilder();
 
@@ -169,7 +169,7 @@ namespace Elistia.DotNetRtfWriter
             }
         }
 
-        public override string render()
+        public override string Render()
         {
             StringBuilder result = new StringBuilder(_blockHead);
 
@@ -218,7 +218,7 @@ namespace Elistia.DotNetRtfWriter
             }
             result.AppendLine();
             
-            result.AppendLine(extractImage());
+            result.AppendLine(ExtractImage());
             result.AppendLine("}}");
             if (_startNewPara) result.Append(@"\par");
             result.AppendLine(_blockTail);

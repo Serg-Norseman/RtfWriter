@@ -93,12 +93,12 @@ namespace Elistia.DotNetRtfWriter
             }
         }
 
-        public void setDefaultFont(string fontName)
+        public void SetDefaultFont(string fontName)
         {
             _fontTable[0] = fontName;
         }
 
-        public FontDescriptor createFont(string fontName)
+        public FontDescriptor CreateFont(string fontName)
         {
             if (_fontTable.Contains(fontName)) {
                 return new FontDescriptor(_fontTable.IndexOf(fontName));
@@ -107,7 +107,7 @@ namespace Elistia.DotNetRtfWriter
             return new FontDescriptor(_fontTable.IndexOf(fontName));
         }
         
-        public ColorDescriptor createColor(RtfColor color)
+        public ColorDescriptor CreateColor(RtfColor color)
         {
             if (_colorTable.Contains(color)) {
                 return new ColorDescriptor(_colorTable.IndexOf(color));
@@ -116,35 +116,29 @@ namespace Elistia.DotNetRtfWriter
             return new ColorDescriptor(_colorTable.IndexOf(color));
         }
         
-        public RtfTable addTable(int rowCount, int colCount, float fontSize)
+        public RtfTable AddTable(int rowCount, int colCount, float fontSize)
         {
-            var horizontalWidth = RtfUtility.paperWidthInPt(_paper, _orientation) - _margins[Direction.Left] - _margins[Direction.Right];
-            return addTable(rowCount, colCount, horizontalWidth, fontSize);
+            var horizontalWidth = RtfUtility.PaperWidthInPt(_paper, _orientation) - _margins[Direction.Left] - _margins[Direction.Right];
+            return AddTable(rowCount, colCount, horizontalWidth, fontSize);
         }
 
-        public override string render()
+        public override string Render()
         {
             StringBuilder rtf = new StringBuilder();
             
-            // ---------------------------------------------------
             // Prologue
-            // ---------------------------------------------------
             rtf.AppendLine(@"{\rtf1\ansi\deff0");
             rtf.AppendLine();
 
-            // ---------------------------------------------------
             // Insert font table
-            // ---------------------------------------------------
             rtf.AppendLine(@"{\fonttbl");
             for (int i = 0; i < _fontTable.Count; i++) {
-                rtf.AppendLine(@"{\f" + i + " " + RtfUtility.unicodeEncode(_fontTable[i].ToString()) + ";}");
+                rtf.AppendLine(@"{\f" + i + " " + RtfUtility.UnicodeEncode(_fontTable[i].ToString()) + ";}");
             }
             rtf.AppendLine("}");
             rtf.AppendLine();
 
-            // ---------------------------------------------------
             // Insert color table
-            // ---------------------------------------------------
             rtf.AppendLine(@"{\colortbl");
             rtf.AppendLine(";");
             for (int i = 1; i < _colorTable.Count; i++) {
@@ -154,14 +148,12 @@ namespace Elistia.DotNetRtfWriter
             rtf.AppendLine("}");
             rtf.AppendLine();
 
-            // ---------------------------------------------------
             // Preliminary
-            // ---------------------------------------------------
             rtf.AppendLine(@"\deflang" + (int)_lcid + @"\plain\fs"
                            + RtfUtility.pt2HalfPt(DefaultValue.FontSize) + @"\widowctrl\hyphauto\ftnbj");
             // page size
-            rtf.AppendLine(@"\paperw" + RtfUtility.paperWidthInTwip(_paper, _orientation)
-                           + @"\paperh" + RtfUtility.paperHeightInTwip(_paper, _orientation));
+            rtf.AppendLine(@"\paperw" + RtfUtility.PaperWidthInTwip(_paper, _orientation)
+                           + @"\paperh" + RtfUtility.PaperHeightInTwip(_paper, _orientation));
             // page margin
             rtf.AppendLine(@"\margt" + RtfUtility.pt2Twip(_margins[Direction.Top]));
             rtf.AppendLine(@"\margr" + RtfUtility.pt2Twip(_margins[Direction.Right]));
@@ -173,30 +165,26 @@ namespace Elistia.DotNetRtfWriter
             }
             // header/footer
             if (_header != null) {
-                rtf.Append(_header.render());
+                rtf.Append(_header.Render());
             }
             if (_footer != null) {
-                rtf.Append(_footer.render());
+                rtf.Append(_footer.Render());
             }
             rtf.AppendLine();
 
-            // ---------------------------------------------------
             // Document body
-            // ---------------------------------------------------
-            rtf.Append(base.render());
+            rtf.Append(base.Render());
             
-            // ---------------------------------------------------
             // Ending
-            // ---------------------------------------------------
             rtf.AppendLine("}");
             
             return rtf.ToString();
         }
         
-        public void save(string fname)
+        public void Save(string fname)
         {
             StreamWriter w = new StreamWriter(fname);
-            w.Write(render());
+            w.Write(Render());
             w.Close();
         }
     }
