@@ -26,7 +26,7 @@ namespace Elistia.DotNetRtfWriter
             _mergeInfo = null;
             _rowIndex = rowIndex;
             _colIndex = colIndex;
-            BackgroundColour = null;
+            BackgroundColor = null;
             ParentTable = parentTable;
         }
         
@@ -97,7 +97,7 @@ namespace Elistia.DotNetRtfWriter
 
         public RtfTable ParentTable { get; private set; }
 
-        public ColorDescriptor BackgroundColour { get; set; }
+        public ColorDescriptor BackgroundColor { get; set; }
 
         public Align Alignment
         {
