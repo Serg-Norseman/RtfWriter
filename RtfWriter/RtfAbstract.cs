@@ -54,6 +54,21 @@ namespace Elistia.DotNetRtfWriter
         /// </summary>
         abstract internal string BlockTail { set; }
 
+        /// <summary>
+        ///  Reading Direction 
+        /// </summary>
+        public ReadingDirection ReadingDirection { get; set; }
+
+        /// <summary>
+        /// Based on Thread Culture ContentDirection will be set
+        /// </summary>
+        protected string ContentDirection
+        {
+            get {
+                return ReadingDirection == ReadingDirection.RightToLeft ? "rtl" : "ltr";
+            }
+        }
+
         protected string AlignmentCode()
         {
             switch (Alignment)

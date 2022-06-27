@@ -9,8 +9,13 @@ namespace Elistia.DotNetRtfWriter
     public class RtfFootnote : RtfBlockList
     {
         private int _position;
-        
+
         internal RtfFootnote(int position, int textLength)
+            : this(position, textLength, ReadingDirection.LeftToRight)
+        {
+        }
+
+        internal RtfFootnote(int position, int textLength, ReadingDirection direction)
             : base(true, false, false, true, false)
         {
             if (position < 0 || position >= textLength) {
@@ -18,6 +23,7 @@ namespace Elistia.DotNetRtfWriter
                                     + " (text length=" + textLength + ")");
             }
             _position = position;
+            ReadingDirection = direction;
         }
         
         internal int Position

@@ -23,26 +23,73 @@ namespace Elistia.DotNetRtfWriter
         // RtfImageType { Jpg = 1, Gif, Png }
         private static readonly ImageFormat[] EtoImageFormats = new ImageFormat[] { ImageFormat.Bitmap, ImageFormat.Jpeg, ImageFormat.Gif, ImageFormat.Png };
 
-        public static RtfImage FromFile(string fileName, RtfImageType type)
+        /// <summary>
+        /// Add an image to this container from a file with filetype provided.
+        /// </summary>
+        /// <param name="imgFname">Filename of the image.</param>
+        /// <param name="imgType">File type of the image.</param>
+        /// <returns>Image being added.</returns>
+        public static RtfImage AddImage(this RtfBlockList blockList, string imgFname, RtfImageType imgType, ReadingDirection direction = ReadingDirection.LeftToRight)
         {
-            var image = new Bitmap(fileName);
+            if (!blockList._allowImage) {
+                throw new Exception("Image is not allowed.");
+            }
+
+            var image = new Bitmap(imgFname);
             float width = image.Width; //(image.Width / image.HorizontalResolution) * 72;
             float height = image.Height; //(image.Height / image.VerticalResolution) * 72;
 
             byte[] imgBytes;
             using (MemoryStream mStream = new MemoryStream()) {
-                image.Save(mStream, EtoImageFormats[(int)type]);
+                image.Save(mStream, EtoImageFormats[(int)imgType]);
                 imgBytes = mStream.ToArray();
             }
 
-            return new RtfImage(type, width, height, imgBytes, fileName);
+            RtfImage block = new RtfImage(imgType, width, height, imgBytes, imgFname, direction);
+            blockList.AddBlock(block);
+            return block;
         }
 
-        /*public static RtfImage FromStream(MemoryStream stream)
+        /// <summary>
+        /// Add an image to this container from a file. Will autodetect format from extension.
+        /// </summary>
+        /// <param name="imgFname">Filename of the image.</param>
+        /// <returns>Image being added.</returns>
+        public static RtfImage AddImage(this RtfBlockList blockList, string imgFname, ReadingDirection direction = ReadingDirection.LeftToRight)
         {
-            byte[] imgBytes = stream.ToArray();
+            int dot = imgFname.LastIndexOf(".");
+            if (dot < 0) {
+                throw new Exception("Cannot determine image type from the filename extension: " + imgFname);
+            }
 
-            var image = new Bitmap(stream);
+            string ext = imgFname.Substring(dot + 1).ToLower();
+            switch (ext) {
+                case "jpg":
+                case "jpeg":
+                    return AddImage(blockList, imgFname, RtfImageType.Jpg, direction);
+                case "gif":
+                    return AddImage(blockList, imgFname, RtfImageType.Gif, direction);
+                case "png":
+                    return AddImage(blockList, imgFname, RtfImageType.Png, direction);
+                default:
+                    throw new Exception("Cannot determine image type from the filename extension: " + imgFname);
+            }
+        }
+
+        /// <summary>
+        /// Add an image to this container from a stream.
+        /// </summary>
+        /// <param name="imageStream">MemoryStream containing image.</param>
+        /// <returns>Image being added.</returns>
+        /*public static RtfImage AddImage(this RtfBlockList blockList, MemoryStream imageStream, ReadingDirection direction = ReadingDirection.LeftToRight)
+        {
+            if (!blockList._allowImage) {
+                throw new Exception("Image is not allowed.");
+            }
+
+            byte[] imgBytes = imageStream.ToArray();
+
+            var image = new Bitmap(imageStream);
             float width = image.Width; //(image.Width / image.HorizontalResolution) * 72;
             float height = image.Height; //(image.Height / image.VerticalResolution) * 72;
 
@@ -56,63 +103,7 @@ namespace Elistia.DotNetRtfWriter
             else
                 throw new Exception("Image format is not supported: " + image.RawFormat.ToString());
 
-            return new RtfImage(imgType, width, height, imgBytes, String.Empty);
-        }*/
-
-
-        /// <summary>
-        /// Add an image to this container from a file with filetype provided.
-        /// </summary>
-        /// <param name="imgFname">Filename of the image.</param>
-        /// <param name="imgType">File type of the image.</param>
-        /// <returns>Image being added.</returns>
-        public static RtfImage AddImage(this RtfBlockList blockList, string imgFname, RtfImageType imgType)
-        {
-            if (!blockList._allowImage) {
-                throw new Exception("Image is not allowed.");
-            }
-            RtfImage block = FromFile(imgFname, imgType);
-            blockList.AddBlock(block);
-            return block;
-        }
-
-        /// <summary>
-        /// Add an image to this container from a file. Will autodetect format from extension.
-        /// </summary>
-        /// <param name="imgFname">Filename of the image.</param>
-        /// <returns>Image being added.</returns>
-        public static RtfImage AddImage(this RtfBlockList blockList, string imgFname)
-        {
-            int dot = imgFname.LastIndexOf(".");
-            if (dot < 0) {
-                throw new Exception("Cannot determine image type from the filename extension: " + imgFname);
-            }
-
-            string ext = imgFname.Substring(dot + 1).ToLower();
-            switch (ext) {
-                case "jpg":
-                case "jpeg":
-                    return AddImage(blockList, imgFname, RtfImageType.Jpg);
-                case "gif":
-                    return AddImage(blockList, imgFname, RtfImageType.Gif);
-                case "png":
-                    return AddImage(blockList, imgFname, RtfImageType.Png);
-                default:
-                    throw new Exception("Cannot determine image type from the filename extension: " + imgFname);
-            }
-        }
-
-        /// <summary>
-        /// Add an image to this container from a stream.
-        /// </summary>
-        /// <param name="imageStream">MemoryStream containing image.</param>
-        /// <returns>Image being added.</returns>
-        /*public static RtfImage AddImage(this RtfBlockList blockList, MemoryStream imageStream)
-        {
-            if (!blockList._allowImage) {
-                throw new Exception("Image is not allowed.");
-            }
-            RtfImage block = FromStream(imageStream);
+            RtfImage block = new RtfImage(imgType, width, height, imgBytes, String.Empty, direction);
             blockList.AddBlock(block);
             return block;
         }*/

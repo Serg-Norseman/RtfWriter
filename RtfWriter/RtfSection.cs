@@ -10,6 +10,11 @@ namespace Elistia.DotNetRtfWriter
         private readonly Margins _margins;
 
         internal RtfSection(SectionStartEnd startEnd, RtfDocument doc)
+            : this(startEnd, doc, ReadingDirection.LeftToRight)
+        {
+        }
+
+        internal RtfSection(SectionStartEnd startEnd, RtfDocument doc, ReadingDirection direction)
         {
             ParentDocument = doc;
             _align = Align.None;
@@ -18,6 +23,7 @@ namespace Elistia.DotNetRtfWriter
             FooterPositionFromPageBottom = 720;
             _sectionFooter = null;
             _margins = new Margins();
+            ReadingDirection = direction;
         }
 
         public override bool StartNewPage
@@ -40,7 +46,7 @@ namespace Elistia.DotNetRtfWriter
 
         public SectionStartEnd StartEnd { get; private set; }
         public PaperOrientation PageOrientation { get; set; }
-        public RtfSectionFooter SectionFooter { get { return _sectionFooter ?? (_sectionFooter = new RtfSectionFooter(this)); } }
+        public RtfSectionFooter SectionFooter { get { return _sectionFooter ?? (_sectionFooter = new RtfSectionFooter(this, ReadingDirection)); } }
         private int FooterPositionFromPageBottom { get; set; }
         
         /// <summary>
@@ -60,7 +66,9 @@ namespace Elistia.DotNetRtfWriter
             StringBuilder result = new StringBuilder();
             if (StartEnd == SectionStartEnd.Start)
             {
-                result.AppendLine(string.Format(@"{{\sectd\ltrsect\footery{0}\sectdefaultcl\sftnbj{1} ", FooterPositionFromPageBottom, AlignmentCode()));
+                //result.AppendLine(string.Format(@"{{\sectd\ltrsect\footery{0}\sectdefaultcl\sftnbj{1} ", FooterPositionFromPageBottom, AlignmentCode()));
+                result.AppendLine(string.Format(@"{{\sectd\{0}sect\footery{1}\sectdefaultcl\sftnbj{2} ", ContentDirection, FooterPositionFromPageBottom, AlignmentCode()));
+
                 if (PageOrientation == PaperOrientation.Landscape)
                 {
                     result.Append(@"\lndscpsxn ");

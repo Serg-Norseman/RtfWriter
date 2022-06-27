@@ -26,6 +26,21 @@ namespace Elistia.DotNetRtfWriter
         private bool _allowTable;
 
 
+        /// <summary>
+        ///  Reading Direction 
+        /// </summary>
+        public ReadingDirection ReadingDirection { get; set; }
+
+        /// <summary>
+        /// Based on Thread Culture ContentDirection will be set
+        /// </summary>
+        protected string ContentDirection
+        {
+            get {
+                return ReadingDirection == ReadingDirection.RightToLeft ? "rtl" : "ltr";
+            }
+        }
+
         protected List<RtfBlock> Blocks
         {
             get { return _blocks; }
@@ -103,7 +118,7 @@ namespace Elistia.DotNetRtfWriter
             if (!_allowParagraph) {
                 throw new Exception("Paragraph is not allowed.");
             }
-            RtfParagraph block = new RtfParagraph(_allowFootnote, _allowControlWord);
+            RtfParagraph block = new RtfParagraph(_allowFootnote, _allowControlWord, ReadingDirection);
             AddBlock(block);
             return block;
         }
@@ -113,7 +128,7 @@ namespace Elistia.DotNetRtfWriter
         /// </summary>
         public RtfSection AddSection(SectionStartEnd type, RtfDocument doc)
         {
-            var block = new RtfSection(type, doc);
+            var block = new RtfSection(type, doc, ReadingDirection);
             AddBlock(block);
             return block;
         }
@@ -131,7 +146,7 @@ namespace Elistia.DotNetRtfWriter
             if (!_allowTable) {
                 throw new Exception("Table is not allowed.");
             }
-            RtfTable block = new RtfTable(rowCount, colCount, horizontalWidth, fontSize);
+            RtfTable block = new RtfTable(rowCount, colCount, horizontalWidth, fontSize, ReadingDirection);
             AddBlock(block);
             return block;
         }

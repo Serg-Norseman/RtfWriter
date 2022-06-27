@@ -22,7 +22,7 @@ namespace Elistia.DotNetRtfWriter
         private bool _startNewPage;
         private bool _startNewPara;
 
-        internal RtfImage(RtfImageType type, float width, float height, byte[] imgByte, string fileName)
+        internal RtfImage(RtfImageType type, float width, float height, byte[] imgByte, string fileName, ReadingDirection direction)
         {
             _alignment = Align.None;
             _margins = new Margins();
@@ -37,6 +37,8 @@ namespace Elistia.DotNetRtfWriter
             _height = height;
             _imgByte = imgByte;
             _imgFname = fileName;
+
+            ReadingDirection = direction;
         }
 
 

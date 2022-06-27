@@ -3,6 +3,15 @@ using System;
 namespace Elistia.DotNetRtfWriter
 {
     /// <summary>
+    /// Reading Direction 
+    /// </summary>
+    public enum ReadingDirection
+    {
+        LeftToRight,
+        RightToLeft
+    }
+
+    /// <summary>
     /// Horizontal alignment.
     /// </summary>
     public enum Align

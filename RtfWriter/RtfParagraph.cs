@@ -49,6 +49,11 @@ namespace Elistia.DotNetRtfWriter
         }
 
         public RtfParagraph(bool allowFootnote, bool allowControlWord)
+            : this(allowFootnote, allowControlWord, ReadingDirection.LeftToRight)
+        {
+        }
+
+        public RtfParagraph(bool allowFootnote, bool allowControlWord, ReadingDirection direction)
         {
             _text = new StringBuilder();
             _linespacing = -1;
@@ -64,6 +69,7 @@ namespace Elistia.DotNetRtfWriter
             _startNewPage = false;
             _firstLineIndent = 0;
             _defaultCharFormat = null;
+            ReadingDirection = direction;
         }
         
         public StringBuilder Text
@@ -187,7 +193,7 @@ namespace Elistia.DotNetRtfWriter
             if (!_allowFootnote) {
                 throw new Exception("Footnote is not allowed.");
             }
-            RtfFootnote fnt = new RtfFootnote(position, _text.Length);
+            RtfFootnote fnt = new RtfFootnote(position, _text.Length, ReadingDirection);
             _footnotes.Add(fnt);
             return fnt;
         }
@@ -517,6 +523,7 @@ namespace Elistia.DotNetRtfWriter
             //if (_firstLineIndent != 0) {
             result.Append(@"\fi" + RtfUtility.pt2Twip(_firstLineIndent));
             //}
+            result.AppendFormat(@"\{0}par", ContentDirection);
             result.Append(AlignmentCode());
             result.AppendLine();
             

@@ -24,7 +24,13 @@ namespace Elistia.DotNetRtfWriter
         private RtfCharFormat _defaultCharFormat;
         private Margins[] _cellPadding;
 
+
         public RtfTable(int rowCount, int colCount, float horizontalWidth, float fontSize)
+            : this(rowCount, colCount, horizontalWidth, fontSize, ReadingDirection.LeftToRight)
+        {
+        }
+
+        public RtfTable(int rowCount, int colCount, float horizontalWidth, float fontSize, ReadingDirection direction)
         {
             _fontSize = fontSize;
             _alignment = Align.None;
@@ -54,9 +60,11 @@ namespace Elistia.DotNetRtfWriter
                 _rowKeepInSamePage[i] = false;
                 _cellPadding[i] = new Margins();
                 for (int j = 0; j < _colCount; j++) {
-                    _cells[i][j] = new RtfTableCell(_defaultCellWidth, i, j, this);
+                    _cells[i][j] = new RtfTableCell(_defaultCellWidth, i, j, this, direction);
                 }
             }
+
+            ReadingDirection = direction;
         }
 
         public ColorDescriptor HeaderBackgroundColor { get; set; }
@@ -474,6 +482,9 @@ namespace Elistia.DotNetRtfWriter
 
             if(_startNewPage || topMargin > 0) {
                 result.Append(@"{\pard");
+
+                result.AppendFormat(@"{0}\par", ContentDirection);
+
                 if (_startNewPage) {
                     result.Append(@"\pagebb");
                 }
@@ -490,7 +501,8 @@ namespace Elistia.DotNetRtfWriter
             for (int i = 0; i < _rowCount; i++)
             {
                 colAcc = 0;
-                result.Append(@"{\trowd\trgaph" +
+                //result.Append(@"{\trowd\trgaph" +
+                result.Append(@"{\trowd\" + ContentDirection + "row" + @"\trgaph" +
                               string.Format(@"\trpaddl{0}\trpaddt{1}\trpaddr{2}\trpaddb{3}",
                                             RtfUtility.pt2Twip(CellPadding[i][Direction.Left]),
                                             RtfUtility.pt2Twip(CellPadding[i][Direction.Top]),

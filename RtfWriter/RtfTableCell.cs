@@ -15,8 +15,14 @@ namespace Elistia.DotNetRtfWriter
         private CellMergeInfo _mergeInfo;
         private int _rowIndex;
         private int _colIndex;
-        
+
+
         internal RtfTableCell(float width, int rowIndex, int colIndex, RtfTable parentTable)
+            : this(width, rowIndex, colIndex, parentTable, ReadingDirection.LeftToRight)
+        {
+        }
+
+        internal RtfTableCell(float width, int rowIndex, int colIndex, RtfTable parentTable, ReadingDirection direction)
             : base(true, false)
         {
             _width = width;
@@ -28,6 +34,7 @@ namespace Elistia.DotNetRtfWriter
             _colIndex = colIndex;
             BackgroundColor = null;
             ParentTable = parentTable;
+            ReadingDirection = direction;
         }
         
         internal bool IsBeginOfColSpan
