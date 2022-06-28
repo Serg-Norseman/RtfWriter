@@ -1,5 +1,7 @@
 using Elistia.DotNetRtfWriter;
 using System.Diagnostics;
+using System.IO;
+using System.Reflection;
 
 namespace RtfWriter.Demo
 {
@@ -7,6 +9,10 @@ namespace RtfWriter.Demo
     {
         private static void Main(string[] args)
         {
+#if NETSTANDARD
+            var application = new Eto.Forms.Application();
+#endif
+
             // Create document by specifying paper size and orientation,
             // and default language.
             var doc = new RtfDocument(PaperSize.A4, PaperOrientation.Landscape, Lcid.English);
@@ -105,7 +111,8 @@ namespace RtfWriter.Demo
             // ==========================================================================
             // Demo 5: Image
             // ==========================================================================
-            img = doc.AddImage("../../demo5.jpg", RtfImageType.Jpg);
+            string imgFileName = GetCombinePath(@"../../demo5.jpg");
+            img = doc.AddImage(imgFileName, RtfImageType.Jpg);
             // You may set the width only, and let the height be automatically adjusted
             // to keep aspect ratio.
             img.Width = 130;
@@ -197,14 +204,32 @@ namespace RtfWriter.Demo
             // ==========================================================================
             // You may also retrieve RTF code string by calling to render() method of
             // RtfDocument objects.
-            doc.Save("Demo.rtf");
+            string outFileName = GetCombinePath(@"demo.rtf");
+            doc.Save(outFileName);
 
 
             // ==========================================================================
             // Open the RTF file we just saved
             // ==========================================================================
-            var p = new Process { StartInfo = { FileName = "Demo.rtf" } };
-            p.Start();
+            Process.Start(new ProcessStartInfo("file://" + outFileName) { UseShellExecute = true });
+        }
+
+        public static string GetBinPath()
+        {
+            Assembly asm = Assembly.GetEntryAssembly();
+            if (asm == null) {
+                asm = Assembly.GetExecutingAssembly();
+            }
+
+            Module[] mods = asm.GetModules();
+            string fn = mods[0].FullyQualifiedName;
+            return Path.GetDirectoryName(fn) + Path.DirectorySeparatorChar;
+        }
+
+        public static string GetCombinePath(string imageFileName)
+        {
+            string result = Path.GetFullPath(Path.Combine(GetBinPath(), imageFileName));
+            return result;
         }
     }
 }
