@@ -1,10 +1,10 @@
-﻿using System;
-using System.Drawing;
-using System.Drawing.Imaging;
-using System.IO;
-
-namespace Elistia.DotNetRtfWriter
+﻿namespace Elistia.DotNetRtfWriter
 {
+#if NETSTD_ETO
+    using System;
+    using System.IO;
+    using Eto.Drawing;
+
     /// <summary>
     /// 
     /// </summary>
@@ -12,7 +12,7 @@ namespace Elistia.DotNetRtfWriter
     {
         public static RtfColor ToRtfColor(this Color color)
         {
-            return new RtfColor(color.R, color.G, color.B);
+            return new RtfColor((byte)color.Rb, (byte)color.Gb, (byte)color.Bb);
         }
 
         public static ColorDescriptor CreateColor(this RtfDocument document, Color color)
@@ -21,6 +21,8 @@ namespace Elistia.DotNetRtfWriter
             return document.CreateColor(rtfColor);
         }
 
+        // RtfImageType { Jpg = 1, Gif, Png }
+        private static readonly ImageFormat[] EtoImageFormats = new ImageFormat[] { ImageFormat.Bitmap, ImageFormat.Jpeg, ImageFormat.Gif, ImageFormat.Png };
 
         /// <summary>
         /// Add an image to this container from a file with filetype provided.
@@ -34,13 +36,13 @@ namespace Elistia.DotNetRtfWriter
                 throw new Exception("Image is not allowed.");
             }
 
-            Image image = Image.FromFile(imgFname);
-            float width = (image.Width / image.HorizontalResolution) * 72;
-            float height = (image.Height / image.VerticalResolution) * 72;
+            var image = new Bitmap(imgFname);
+            float width = image.Width; //(image.Width / image.HorizontalResolution) * 72;
+            float height = image.Height; //(image.Height / image.VerticalResolution) * 72;
 
             byte[] imgBytes;
             using (MemoryStream mStream = new MemoryStream()) {
-                image.Save(mStream, image.RawFormat);
+                image.Save(mStream, EtoImageFormats[(int)imgType]);
                 imgBytes = mStream.ToArray();
             }
 
@@ -80,7 +82,7 @@ namespace Elistia.DotNetRtfWriter
         /// </summary>
         /// <param name="imageStream">MemoryStream containing image.</param>
         /// <returns>Image being added.</returns>
-        public static RtfImage AddImage(this RtfBlockList blockList, MemoryStream imageStream, ReadingDirection direction = ReadingDirection.LeftToRight)
+        /*public static RtfImage AddImage(this RtfBlockList blockList, MemoryStream imageStream, ReadingDirection direction = ReadingDirection.LeftToRight)
         {
             if (!blockList._allowImage) {
                 throw new Exception("Image is not allowed.");
@@ -88,9 +90,9 @@ namespace Elistia.DotNetRtfWriter
 
             byte[] imgBytes = imageStream.ToArray();
 
-            Image image = Image.FromStream(imageStream);
-            float width = (image.Width / image.HorizontalResolution) * 72;
-            float height = (image.Height / image.VerticalResolution) * 72;
+            var image = new Bitmap(imageStream);
+            float width = image.Width; //(image.Width / image.HorizontalResolution) * 72;
+            float height = image.Height; //(image.Height / image.VerticalResolution) * 72;
 
             RtfImageType imgType;
             if (image.RawFormat.Equals(ImageFormat.Png))
@@ -105,6 +107,7 @@ namespace Elistia.DotNetRtfWriter
             RtfImage block = new RtfImage(imgType, width, height, imgBytes, String.Empty, direction);
             blockList.AddBlock(block);
             return block;
-        }
+        }*/
     }
+#endif
 }

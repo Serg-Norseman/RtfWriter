@@ -53,13 +53,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\RtfWriter.WinForms\RtfWriter.WinForms.csproj">
-      <Project>{1aaed99a-2b33-49cc-869a-924c24c47a87}</Project>
-      <Name>RtfWriter.WinForms</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\RtfWriter\RtfWriter.csproj">
+    <ProjectReference Include="..\RtfWriter\RtfWriter.netfw.csproj">
       <Project>{591BCEB5-6B6F-4368-BE6C-F89F668F7DCB}</Project>
-      <Name>RtfWriter</Name>
+      <Name>RtfWriter.netfw</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

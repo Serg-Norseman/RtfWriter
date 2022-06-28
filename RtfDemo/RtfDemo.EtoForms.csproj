@@ -7,8 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\RtfWriter.EtoForms\RtfWriter.EtoForms.csproj" />
-        <ProjectReference Include="..\RtfWriter\RtfWriter.netstd.csproj" />
+        <ProjectReference Include="..\RtfWriter\RtfWriter.netstd.eto.csproj" />
     </ItemGroup>
 
 
