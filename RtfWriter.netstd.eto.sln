@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32602.215
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RtfWriter.netstd", "RtfWriter\RtfWriter.netstd.csproj", "{591BCEB5-6B6F-4368-BE6C-F89F668F7DCB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RtfDemo.EtoForms", "RtfDemo\RtfDemo.EtoForms.csproj", "{B4B65481-AEB3-454A-9FCD-036C435D4DBA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RtfWriter.netstd.eto", "RtfWriter\RtfWriter.netstd.eto.csproj", "{591BCEB5-6B6F-4368-BE6C-F89F668F7DCB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,18 @@ Global
 		MSWin_Release|Any CPU = MSWin_Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B4B65481-AEB3-454A-9FCD-036C435D4DBA}.Linux_Debug|Any CPU.ActiveCfg = Linux_Debug|Any CPU
+		{B4B65481-AEB3-454A-9FCD-036C435D4DBA}.Linux_Debug|Any CPU.Build.0 = Linux_Debug|Any CPU
+		{B4B65481-AEB3-454A-9FCD-036C435D4DBA}.Linux_Release|Any CPU.ActiveCfg = Linux_Release|Any CPU
+		{B4B65481-AEB3-454A-9FCD-036C435D4DBA}.Linux_Release|Any CPU.Build.0 = Linux_Release|Any CPU
+		{B4B65481-AEB3-454A-9FCD-036C435D4DBA}.MacOS_Debug|Any CPU.ActiveCfg = MacOS_Debug|Any CPU
+		{B4B65481-AEB3-454A-9FCD-036C435D4DBA}.MacOS_Debug|Any CPU.Build.0 = MacOS_Debug|Any CPU
+		{B4B65481-AEB3-454A-9FCD-036C435D4DBA}.MacOS_Release|Any CPU.ActiveCfg = MacOS_Release|Any CPU
+		{B4B65481-AEB3-454A-9FCD-036C435D4DBA}.MacOS_Release|Any CPU.Build.0 = MacOS_Release|Any CPU
+		{B4B65481-AEB3-454A-9FCD-036C435D4DBA}.MSWin_Debug|Any CPU.ActiveCfg = MSWin_Debug|Any CPU
+		{B4B65481-AEB3-454A-9FCD-036C435D4DBA}.MSWin_Debug|Any CPU.Build.0 = MSWin_Debug|Any CPU
+		{B4B65481-AEB3-454A-9FCD-036C435D4DBA}.MSWin_Release|Any CPU.ActiveCfg = MSWin_Release|Any CPU
+		{B4B65481-AEB3-454A-9FCD-036C435D4DBA}.MSWin_Release|Any CPU.Build.0 = MSWin_Release|Any CPU
 		{591BCEB5-6B6F-4368-BE6C-F89F668F7DCB}.Linux_Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{591BCEB5-6B6F-4368-BE6C-F89F668F7DCB}.Linux_Debug|Any CPU.Build.0 = Debug|Any CPU
 		{591BCEB5-6B6F-4368-BE6C-F89F668F7DCB}.Linux_Release|Any CPU.ActiveCfg = Release|Any CPU

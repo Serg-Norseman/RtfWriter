@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32602.215
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RtfWriter.netstd", "RtfWriter\RtfWriter.netstd.csproj", "{591BCEB5-6B6F-4368-BE6C-F89F668F7DCB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RtfWriter.netstd.xamarin", "RtfWriter\RtfWriter.netstd.xamarin.csproj", "{591BCEB5-6B6F-4368-BE6C-F89F668F7DCB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
